@@ -1,0 +1,9 @@
+[package]
+name = "useful_function"
+version = "0.1.0"
+authors = ["Koki Honda <kokihonda@am.ics.keio.ac.jp>"]
+edition = "2018"
+
+[dependencies]
+num="0.3.0"
+primes="0.3.0"

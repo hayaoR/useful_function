@@ -1,0 +1,1 @@
+## useful funtions for competitive programming
