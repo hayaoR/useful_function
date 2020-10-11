@@ -2,6 +2,7 @@ pub mod bit;
 pub mod fft;
 pub mod lis;
 pub mod math;
+pub mod maxflow;
 pub mod modint;
 pub mod search;
 pub mod segtree;
