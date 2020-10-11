@@ -2,13 +2,11 @@ use num::Complex;
 use std::f64::consts::PI;
 
 /// atc fft_c
-/// use proconio::input;
-/// 
+/// ```
+/// use useful_function::fft::multiply; 
 /// fn main() {
-///     input! {
-///         n: usize,
-///         p: [(usize, usize); n],
-///     }
+///     let n = 4;
+///     let p = vec![(1,1), (2, 2), (3, 4), (4,8)];
 ///     let mut a = vec![];
 ///     let mut b = vec![];
 ///     a.push(0);
@@ -21,9 +19,11 @@ use std::f64::consts::PI;
 ///     let ans = multiply(a, b);
 /// 
 ///     for i in 0..2*n {
-///         println!("{}", ans[i+1].round() as isize)
+///         println!("{}", ans[i+1]);
 ///     }
 /// }
+/// ```
+/// 
 
 /// g, hは所有権が移動するので注意!
 /// g, hは多項式のvector表現
