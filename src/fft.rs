@@ -3,7 +3,7 @@ use std::f64::consts::PI;
 
 /// atc fft_c
 /// ```
-/// use useful_function::fft::multiply; 
+/// use useful_function::fft::multiply;
 /// fn main() {
 ///     let n = 4;
 ///     let p = vec![(1,1), (2, 2), (3, 4), (4,8)];
@@ -11,19 +11,19 @@ use std::f64::consts::PI;
 ///     let mut b = vec![];
 ///     a.push(0);
 ///     b.push(0);
-/// 
+///
 ///     for i in 0..n {
 ///         a.push(p[i].0);
 ///         b.push(p[i].1);
 ///     }
 ///     let ans = multiply(a, b);
-/// 
+///
 ///     for i in 0..2*n {
 ///         println!("{}", ans[i+1]);
 ///     }
 /// }
 /// ```
-/// 
+///
 
 /// g, hは所有権が移動するので注意!
 /// g, hは多項式のvector表現
@@ -100,7 +100,6 @@ fn inverse_dft(f: Vec<Complex<f64>>, n: usize) -> Vec<Complex<f64>> {
     }
     res
 }
-
 
 fn pow_2_at_least(n: usize) -> usize {
     let mut sz = 1;

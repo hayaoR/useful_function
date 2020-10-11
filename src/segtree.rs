@@ -1,16 +1,17 @@
 use num::Num;
 
-/// opがminならrange minumum query maxならrange maximum query 
+/// opがminならrange minumum query maxならrange maximum query
 /// 区間は0-indexed
 pub struct SegTree<T> {
     n: usize,
     dat: Vec<T>,
-    e : T,
+    e: T,
     op: fn(T, T) -> T,
 }
 
 impl<T> SegTree<T>
-where T: Num + Clone + Copy 
+where
+    T: Num + Clone + Copy,
 {
     pub fn new(_n: usize, e: T, op: fn(T, T) -> T) -> Self {
         let mut n = 1;
@@ -55,4 +56,3 @@ where T: Num + Clone + Copy
         self.n
     }
 }
-
