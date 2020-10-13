@@ -78,7 +78,6 @@ mod test {
     #[test]
     fn test_maxflow() {
         let v = 4;
-        let e = 5;
         let edges = vec![(0, 1, 2), (0, 2, 1), (1, 2, 1), (1, 3, 1), (2, 3, 2)];
 
         let mut mf = Maxflow::new(v);
