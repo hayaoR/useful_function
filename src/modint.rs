@@ -1,21 +1,23 @@
 use std::mem;
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
 
+
 ///テストしていないのでバグが含まれているかもしれない
+/// moは適宜調整する。
+const MOD: isize = 1_000_000_007;
 #[derive(Clone, Copy)]
 pub struct Mint {
     x: isize,
-    mo: isize,
 }
 
 impl Mint {
-    pub fn new(x: isize, mo: isize) -> Self {
-        Mint { x: x % mo, mo }
+    pub fn new(x: isize) -> Self {
+        Mint { x: x % MOD }
     }
 
     pub fn pow(&self, n: isize) -> Self {
         let mut n = n;
-        let mut res = Mint::new(1, self.mo);
+        let mut res = Mint::new(1);
         let mut x = self.clone();
         while n > 0 {
             if n & 1 != 0 {
@@ -28,7 +30,7 @@ impl Mint {
     }
 
     pub fn inv(&self) -> isize {
-        let mut b = self.mo;
+        let mut b = MOD;
         let mut u = 1;
         let mut v = 0;
         let mut x = self.x;
@@ -40,10 +42,10 @@ impl Mint {
             mem::swap(&mut u, &mut v);
         }
 
-        u %= self.mo;
+        u %= MOD;
 
         if u < 0 {
-            u += self.mo;
+            u += MOD;
         }
 
         u
@@ -56,37 +58,37 @@ impl Mint {
 
 impl AddAssign<isize> for Mint {
     fn add_assign(&mut self, rhs: isize) {
-        self.x = (self.x + rhs) % self.mo;
+        self.x = (self.x + rhs) % MOD;
     }
 }
 
 impl AddAssign for Mint {
     fn add_assign(&mut self, rhs: Self) {
-        self.x = (self.x + rhs.x) % self.mo;
+        self.x = (self.x + rhs.x) % MOD;
     }
 }
 
 impl SubAssign<isize> for Mint {
     fn sub_assign(&mut self, rhs: isize) {
-        self.x = (self.x + self.mo - rhs) % self.mo;
+        self.x = (self.x + MOD - rhs) % MOD;
     }
 }
 
 impl SubAssign for Mint {
     fn sub_assign(&mut self, rhs: Self) {
-        self.x = (self.x + self.mo - rhs.x) % self.mo;
+        self.x = (self.x + MOD - rhs.x) % MOD;
     }
 }
 
 impl MulAssign<isize> for Mint {
     fn mul_assign(&mut self, rhs: isize) {
-        self.x = self.x * rhs % self.mo;
+        self.x = self.x * rhs % MOD;
     }
 }
 
 impl MulAssign for Mint {
     fn mul_assign(&mut self, rhs: Self) {
-        self.x = self.x * rhs.x % self.mo;
+        self.x = self.x * rhs.x % MOD;
     }
 }
 
@@ -94,8 +96,7 @@ impl Add<isize> for Mint {
     type Output = Self;
     fn add(self, rhs: isize) -> Self {
         Mint {
-            x: (self.x + rhs) % self.mo,
-            mo: self.mo,
+            x: (self.x + rhs) % MOD,
         }
     }
 }
@@ -104,15 +105,14 @@ impl DivAssign<isize> for Mint {
     fn div_assign(&mut self, rhs: isize) {
         let mint = Mint {
             x: rhs,
-            mo: self.mo,
         };
-        self.x = self.x * mint.inv() % self.mo;
+        self.x = self.x * mint.inv() % MOD;
     }
 }
 
 impl DivAssign for Mint {
     fn div_assign(&mut self, rhs: Self) {
-        self.x = self.x * rhs.inv() % self.mo;
+        self.x = self.x * rhs.inv() % MOD;
     }
 }
 
@@ -120,8 +120,7 @@ impl Add for Mint {
     type Output = Self;
     fn add(self, rhs: Self) -> Self {
         Mint {
-            x: (self.x + rhs.x) % self.mo,
-            mo: self.mo,
+            x: (self.x + rhs.x) % MOD,
         }
     }
 }
@@ -130,8 +129,7 @@ impl Sub<isize> for Mint {
     type Output = Self;
     fn sub(self, rhs: isize) -> Self {
         Mint {
-            x: (self.x + self.mo - rhs) % self.mo,
-            mo: self.mo,
+            x: (self.x + MOD - rhs) % MOD,
         }
     }
 }
@@ -140,8 +138,7 @@ impl Sub for Mint {
     type Output = Self;
     fn sub(self, rhs: Self) -> Self {
         Mint {
-            x: (self.x + self.mo - rhs.x) % self.mo,
-            mo: self.mo,
+            x: (self.x + MOD - rhs.x) % MOD,
         }
     }
 }
@@ -150,8 +147,7 @@ impl Mul<isize> for Mint {
     type Output = Self;
     fn mul(self, rhs: isize) -> Self {
         Mint {
-            x: self.x * rhs % self.mo,
-            mo: self.mo,
+            x: self.x * rhs % MOD,
         }
     }
 }
@@ -160,8 +156,7 @@ impl Mul for Mint {
     type Output = Self;
     fn mul(self, rhs: Self) -> Self {
         Mint {
-            x: self.x * rhs.x % self.mo,
-            mo: self.mo,
+            x: self.x * rhs.x % MOD,
         }
     }
 }
@@ -171,11 +166,9 @@ impl Div<isize> for Mint {
     fn div(self, rhs: isize) -> Self {
         let mint = Mint {
             x: rhs,
-            mo: self.mo,
         };
         Mint {
-            x: self.x * mint.inv() % self.mo,
-            mo: self.mo,
+            x: self.x * mint.inv() % MOD,
         }
     }
 }
@@ -184,8 +177,7 @@ impl Div for Mint {
     type Output = Self;
     fn div(self, rhs: Self) -> Self {
         Mint {
-            x: self.x * rhs.inv() % self.mo,
-            mo: self.mo,
+            x: self.x * rhs.inv() % MOD,
         }
     }
 }
@@ -196,8 +188,7 @@ mod test {
 
     #[test]
     fn test_modpow() {
-        let mo = 1_000_000_007;
-        let n = Mint::new(3, mo);
+        let n = Mint::new(3);
         let result = n.pow(45);
         assert_eq!(result.val(), 644897553);
     }
