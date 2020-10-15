@@ -1,7 +1,6 @@
 use std::mem;
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
 
-
 ///テストしていないのでバグが含まれているかもしれない
 /// moは適宜調整する。
 const MOD: isize = 1_000_000_007;
@@ -103,9 +102,7 @@ impl Add<isize> for Mint {
 
 impl DivAssign<isize> for Mint {
     fn div_assign(&mut self, rhs: isize) {
-        let mint = Mint {
-            x: rhs,
-        };
+        let mint = Mint { x: rhs };
         self.x = self.x * mint.inv() % MOD;
     }
 }
@@ -164,9 +161,7 @@ impl Mul for Mint {
 impl Div<isize> for Mint {
     type Output = Self;
     fn div(self, rhs: isize) -> Self {
-        let mint = Mint {
-            x: rhs,
-        };
+        let mint = Mint { x: rhs };
         Mint {
             x: self.x * mint.inv() % MOD,
         }

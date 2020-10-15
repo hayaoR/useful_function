@@ -1,5 +1,3 @@
-use num::Num;
-
 /// opがminならrange minumum query maxならrange maximum query
 /// 区間は0-indexed
 pub struct SegTree<T> {
@@ -11,7 +9,7 @@ pub struct SegTree<T> {
 
 impl<T> SegTree<T>
 where
-    T: Num + Clone + Copy,
+    T: PartialEq + Clone + Copy,
 {
     pub fn new(_n: usize, e: T, op: fn(T, T) -> T) -> Self {
         let mut n = 1;
@@ -36,19 +34,23 @@ where
         }
     }
 
-    /// queryは[a, b)の最大値を返す
-    /// 外から呼ぶときはquery(a, b, 0, 0, n)と呼ぶ
-    pub fn query(&self, a: usize, b: usize, k: usize, l: usize, r: usize) -> T {
+    /// queryは[a, b)のopを返す
+    /// 外から呼ぶときはquery(a, b, 0, 0, n)と呼ぶ <- 呼ぶのやめた
+    fn query_inner(&self, a: usize, b: usize, k: usize, l: usize, r: usize) -> T {
         if r <= a || b <= l {
             return self.e;
         }
         if a <= l && r <= b {
             return self.dat[k];
         } else {
-            let vl = self.query(a, b, k * 2 + 1, l, (l + r) / 2);
-            let vr = self.query(a, b, k * 2 + 2, (l + r) / 2, r);
+            let vl = self.query_inner(a, b, k * 2 + 1, l, (l + r) / 2);
+            let vr = self.query_inner(a, b, k * 2 + 2, (l + r) / 2, r);
             return (self.op)(vl, vr);
         }
+    }
+
+    pub fn query(&self, a: usize, b: usize) -> T {
+        self.query_inner(a, b, 0, 0, self.get_n())
     }
 
     ///queryを呼ぶときに使う
