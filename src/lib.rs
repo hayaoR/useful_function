@@ -8,3 +8,4 @@ pub mod search;
 pub mod segtree;
 pub mod slice;
 pub mod unionfind;
+pub mod lazysegtree;
