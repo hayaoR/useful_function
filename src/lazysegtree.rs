@@ -1,4 +1,14 @@
 /// 区間は0-indexed
+/// eはopの単位元 op(a, e) = op(e, a) = a
+/// idはmappingの恒等写像 mapping(id, a) = a
+/// 区間和を取る場合のmapping
+/// struct S { value: int, size: int }
+/// 末端 data[k].size = 1
+/// op(a: S, b: S) -> S { a.value + b.value, a.size + b.size } 
+/// mapping(F f, S x) -> S { x.value + x.size * f, x.size }
+/// 全要素のサイズを1で初期化
+/// 区間更新
+/// 疑似的に恒等写像として扱う値を決める 
 pub struct LazySegTree<T, F> {
     n: usize,
     dat: Vec<T>,
