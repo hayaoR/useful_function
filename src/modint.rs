@@ -2,7 +2,8 @@ use std::mem;
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
 
 ///テストしていないのでバグが含まれているかもしれない
-/// moは適宜調整する。
+/// 負の数は例えば-6%MOD=-6になる
+/// MODは適宜調整する。
 const MOD: isize = 1_000_000_007;
 #[derive(Clone, Copy)]
 pub struct Mint {
