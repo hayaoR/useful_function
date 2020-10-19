@@ -15,6 +15,7 @@ impl Mint {
         Mint { x: x % MOD }
     }
 
+    //O(log n)
     pub fn pow(&self, n: isize) -> Self {
         let mut n = n;
         let mut res = Mint::new(1);
